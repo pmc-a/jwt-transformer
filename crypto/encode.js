@@ -1,18 +1,14 @@
 const jwt = require('jsonwebtoken');
 
-const SUPER_SECRET_KEY = 'super-secret-key';
-
 const encode = (dataToEncode) => {
     try {
-        const sessionToken = jwt.sign(dataToEncode, SUPER_SECRET_KEY, {
+        const sessionToken = jwt.sign(dataToEncode, process.env.JWT_SECRET_SIGNING_KEY, {
             expiresIn: 60,
             audience: 'mock-audience',
-            issuer: 'this-here-wee-node-yolk',
+            issuer: 'mock-issuer',
         });
         
         const b64Token = Buffer.from(sessionToken).toString('base64');
-        
-        console.log({ b64Token });
 
         return b64Token;
     } catch (error) {

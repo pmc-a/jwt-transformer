@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
@@ -17,7 +19,6 @@ app.get('/encode', (req, res) => {
         const encodedJwt = encode({ email, uuid });
 
         res.status(200).send(encodedJwt);
-
     } catch (error) {
         res.status(500).send(error.message);
     }
