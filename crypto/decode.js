@@ -17,10 +17,13 @@ const decode = (base64Jwt) => {
 
         return decodedJwt;
     } catch (error) {
-        // PETETODO: Handle expiry here
-
         console.error(error)
-        throw new Error('Something went wrong decoding the token');
+
+        if (error instanceof jwt.TokenExpiredError) {
+            throw new Error('Token has expired');
+        } else {
+            throw new Error('Something went wrong decoding the token');
+        }
     }
 };
 
