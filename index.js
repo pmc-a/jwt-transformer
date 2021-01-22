@@ -7,6 +7,7 @@ const app = express();
 const { decode, encode } = require('./crypto');
 
 app.use(bodyParser.json());
+app.use(express.static('./public'))
 
 app.get('/health', (req, res) => {
     res.status(200).send();
@@ -20,7 +21,7 @@ app.get('/encode', (req, res) => {
 
         res.status(200).send(encodedJwt);
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -32,7 +33,7 @@ app.post('/decode', (req, res) => {
 
         res.status(200).send(decodedJwt);
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).json({ error: error.message });
     }
 });
 
